@@ -1,4 +1,3 @@
-machine_learning
-================
+#machine_learning homework for  course at http://coursera.org
 
-machine_learning
+
