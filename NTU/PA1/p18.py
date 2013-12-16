@@ -1,5 +1,5 @@
 from numpy import *
-from random import shuffle
+import random
 
 def process(data):
     return map(lambda x:map(float,x.split()),data)
@@ -31,24 +31,19 @@ def train(X,Y,times=50,pocket=True):
     w = zeros(len(X[0]))
     retw = w.copy()
     mx = 0
+    order = range(len(X))
     while True:
-        order = range(len(X))
-        shuffle(order)
-        mx = 0
-        for i in order:
-            x = X[i]
-            y = Y[i]
-            if sign(dot(w,x))!=y:
-                w = w + y*x
-                if pocket:   
-                    tmx = verify(w, X, Y)
-                    if tmx>mx:
-                        mx=tmx
-                        retw=w.copy()
-                times-=1
-            
-            if times==0:
-                break
+        i = random.choice(order)
+        x = X[i]
+        y = Y[i]
+        if sign(dot(w,x))!=y:
+            w = w + y*x
+            if pocket:   
+                tmx = verify(w, X, Y)
+                if tmx>mx:
+                    mx=tmx
+                    retw=w.copy()
+            times-=1
         if times==0:
             break
     if not pocket:
